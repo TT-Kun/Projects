@@ -15,7 +15,7 @@ void Pause() {
 		Sleep(300);
 		if (KEY_PRESS(VK_SPACE)) {
 			SetPos(0, 28);
-			printf("------------------- °´ÏÂ¿Õ¸ñ¼üÔİÍ£ÓÎÏ· -------------------");
+			printf("                                                          ");
 			break;
 		}
 	}
@@ -59,24 +59,24 @@ void CreateHelp() {/*´òÓ¡ÓÎÏ·´°¿ÚÖĞµÄËµÃ÷ĞÅÏ¢*/
 	printf("ESCÍË³öÓÎÏ·£¬spaceÔİÍ£ÓÎÏ·");
 }
 
-void CreateMap()
+void CreateMap()//´òÓ¡µØÍ¼£¨ÖÜÎ§µÄÇ½£©
 {
-	setlocale(LC_ALL, "");
+	setlocale(LC_ALL, "");//ÇĞ»»µ½±¾µØµØÇø
 	SetPos(0, 0);
 	for (short i = 0; i < 58; i += 2) {
 		wprintf(L"% lc", WALL);
-	}
+	}//´òÓ¡ÉÏÃæµÄÇ½Ìå
 	SetPos(0, 26);
 	for (short i = 0; i < 58; i += 2) {
 		wprintf(L"% lc", WALL);
-	}
+	}//´òÓ¡ÏÂÃæµÄÇ½Ìå
 	for (short i = 1; i < 26; i++) {
 		SetPos(0, i);
 		wprintf(L"% lc", WALL);
 		SetPos(56, i);
 		wprintf(L"% lc", WALL);
-	}
-	SetPos(0, 28);
+	}//´òÓ¡×óÓÒÇ½Ìå
+	SetPos(0, 28);//´òÓ¡Íêºó¶¨Î»µ½µØÍ¼ÏÂ·½£¬±ÜÃâÌáÊ¾Óï¼·¶ÒµØÍ¼
 }
 
 void CreateFood(Snake* ps) {/*´´½¨Ê³Îï*/
@@ -101,6 +101,7 @@ again:
 	pFood->front = pFood->next = NULL;
 	pFood->x = x;	pFood->y = y;
 	ps->pfood = pFood;
+	//½«´´½¨µÄÊ³ÎïºÍSnake½á¹¹ÌåÁªÏµÆğÀ´
 	SetPos(pFood->x, pFood->y);
 	wprintf(L"%lc", FOOD);
 	SetPos(0, 28);
@@ -116,10 +117,11 @@ int NextIsFood(Snake* ps) {//ÅĞ¶ÏÒªÇ°½øµÄÏÂÒ»¸öµãÓĞÃ»ÓĞÊ³Îï
 	else if (ps->dir == RIGHT && ps->pSnake->y == ps->pfood->y && ps->pSnake->x + 2 == ps->pfood->x)
 		return 1;
 	return 0;
-}		
+}
 
 void HeadAppear(Snake* ps) {/*ÔÚÉß½«ÒªÒÆ¶¯µ½µÄÏÂÒ»¸öÎ»ÖÃ´òÓ¡³öÍ¼°¸,²¢Í·²åÒ»¸ö½Úµã*/
 	SnakeNode* NewHead = (SnakeNode*)malloc(sizeof(SnakeNode));
+	//½ÓÏÂÀ´ÅĞ¶ÏÉßµÄÔË¶¯·½ÏòÀ´ÕÒµ½ÏÂÒ»¸öÎ»ÖÃ
 	if (ps->dir == UP) {
 		NewHead->x = ps->pSnake->x;
 		NewHead->y = ps->pSnake->y - 1;
@@ -141,10 +143,9 @@ void HeadAppear(Snake* ps) {/*ÔÚÉß½«ÒªÒÆ¶¯µ½µÄÏÂÒ»¸öÎ»ÖÃ´òÓ¡³öÍ¼°¸,²¢Í·²åÒ»¸ö½Úµ
 	NewHead->next = ps->pSnake;
 	ps->pSnake->front = NewHead;
 	ps->pSnake = NewHead;
-
+	//Í·²åĞÂµÄ½Úµã
 	SetPos(NewHead->x, NewHead->y);
-	//printf("¹ş");
-	wprintf(L"%lc", L'¡ö');
+	wprintf(L"%lc", BODY);
 }
 
 void TailDisapp(Snake* ps) {//Î²É¾×îºóÒ»¸ö½Úµã²¢ÓÃ¿Õ¸ñ¸²¸ÇBODYÍ¼°¸
@@ -189,7 +190,7 @@ void InitSnake(Snake* ps) {/*³õÊ¼»¯Ì°³ÔÉß*/
 	ps->socre = 0;//ÉèÖÃÄ¿Ç°µÃ·Ö
 	ps->food_weight = 20;//ÉèÖÃÊ³ÎïÖØÁ¿
 	ps->game_status = OK;//ÉèÖÃÓÎÏ·×´Ì¬
-	ps->sleep_time = 250;//Á½°ÙÎåÊ®ºÁÃë
+	ps->sleep_time = 250;//ÉèÖÃÃ¿´ÎÔË¶¯¼ä¸ôÊÇÁ½°ÙÎåÊ®ºÁÃë
 	SetPos(0, 28);
 }
 
@@ -227,21 +228,21 @@ void InitGame(Snake* ps) {/*³õÊ¼»¯ÓÎÏ·*/
 	system("title Ì°³ÔÉß");//ÃüÃû³ÌĞò
 	HideCursor();//Òş²Ø¹â±êº¯Êı
 	CreateWelcome();//´´½¨»¶Ó­½çÃæ
-	system("pause");
-	system("cls");//ÇåÀíÆÁÄ»
+	system("echo ------------------ Çë°´ ¡ú ¼ÌĞø ------------------&pause>nul");
+	//ÊÇ³ÌĞòÔİÍ£Ö±µ½¼üÅÌÊäÈëĞÅÏ¢
+	system("cls");//Çå¿ÕÆÁÄ»
 
 	CreateSpeci();//´´½¨ËµÃ÷½çÃæ
-	system("pause");
+	system("echo ------------------ Çë°´ ¡ú ¼ÌĞø ------------------&pause>nul");
 	system("cls");
 
-	CreateMap();//´´½¨µØÍ¼
-	InitSnake(ps);
-	CreateFood(ps);
-	CreateHelp();
+	CreateMap();
+	CreateHelp();//´´½¨ÓÎÏ·×¼±¸½çÃæ
+	InitSnake(ps);//³õÊ¼»¯Éß
+	CreateFood(ps);//´´½¨Ê³Îï
 
 	SetPos(0, 28);
 	system("echo ------------------- Çë°´ÈÎÒâ¼ü¿ªÊ¼ÓÎÏ· -------------------&pause>nul");
-
 }
 
 void RunGame(Snake* ps)  {

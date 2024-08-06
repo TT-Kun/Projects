@@ -32,9 +32,9 @@ typedef struct SnakeNode /*蛇链表节点*/ {
 	int x;
 	int y; 
 	//坐标
-	struct SnakeNode* next;//下一个节点
-	struct SnakeNode* front;//上一个节点
-}SnakeNode,*pSnakeNode;
+	struct SnakeNode* next;//指向下一个节点
+	struct SnakeNode* front;//指向上一个节点
+}SnakeNode;
 
 typedef	struct Snake {
 	SnakeNode* pSnake;//维护整条蛇的指针，也是指向头节点的指针
@@ -43,13 +43,15 @@ typedef	struct Snake {
 	enum  DIRECTION dir;//蛇头的⽅向
 	enum GAME_STATUS game_status;//游戏状态
 	int socre;//当前获得分数
-	int food_weight;//默认每个⻝物10分
+	int food_weight;//默认每个⻝物20分
 	int sleep_time;//每⾛⼀步休眠时间
 }Snake;
 
 void SetPos(short x, short y);//定位地图
 
 void HideCursor();/*隐藏光标*/
+
+void Pause();//游戏暂停
 
 void CreateWelcome();//打印欢迎界面
 
